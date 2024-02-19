@@ -194,7 +194,7 @@ const Form = () => {
         >
           <Flex flexDir={"column"} gap={4}>
             <FormControl>
-              <FormLabel>{"Cardholder's Nam"}</FormLabel>
+              <FormLabel>{"Cardholder's Name"}</FormLabel>
               <Input type='text' name="name" onChange={onChange} placeholder="Joe Doe"/>
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
