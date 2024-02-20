@@ -1,5 +1,3 @@
-
-
 import { Flex } from "@chakra-ui/layout"
 import {
   FormControl,
@@ -25,7 +23,7 @@ import { BsBank } from "react-icons/bs"
 
 import Tilt from "react-parallax-tilt"
 import InputMask from "react-input-mask"
-import './card.css'
+import "./card.css"
 
 // import autoAnimate from "@formkit/auto-animate"
 
@@ -33,8 +31,8 @@ const Form = () => {
   const [card, setCard] = useState({
     number: "0000  0000  0000  0000",
     name: "CARDHOLDER",
-    exp: "00/00",
-    cvv: "***",
+    exp: "MM/YY",
+    cvv: "●●●",
     type: "",
   })
 
@@ -52,12 +50,12 @@ const Form = () => {
     } else if (e.target.name == "exp" && !e.target.value) {
       setCard({
         ...card,
-        [e.target.name]: "00/00",
+        [e.target.name]: "MM/YY",
       })
     } else if (e.target.name == "cvv" && !e.target.value) {
       setCard({
         ...card,
-        [e.target.name]: "000",
+        [e.target.name]: "●●●",
       })
     } else {
       setCard({
@@ -67,18 +65,21 @@ const Form = () => {
     }
   }
 
-  const [isCvvFocused, setIsCvvFocused] = useState(false);
+  const [isCvvFocused, setIsCvvFocused] = useState(false)
+  const [showCardFront, setShowCardFront] = useState(true)
 
   const handleCvvFocus = () => {
-    setIsCvvFocused(true);
-  };
+    setIsCvvFocused(true)
+    setShowCardFront(false)
+  }
 
   const handleCvvBlur = () => {
-    setIsCvvFocused(false);
-  };
+    setIsCvvFocused(false)
+    setShowCardFront(true)
+  }
 
   return (
-    <Box backdropFilter='auto' backdropBlur='8px'>
+    <Box>
       <Flex
         fontFamily={"main"}
         flexDirection={"column"}
@@ -104,8 +105,11 @@ const Form = () => {
               tiltMaxAngleX={5}
               className={isCvvFocused ? "flip" : ""}
               flipHorizontally={isCvvFocused}
+              transitionSpeed={1200}
+              
             >
               <Flex
+              
                 borderColor={"green"}
                 border={"1px"}
                 height={"220px"}
@@ -115,6 +119,7 @@ const Form = () => {
                 borderRadius={20}
                 flexDirection={"column"}
                 shadow={"dark-lg"}
+                hidden={isCvvFocused}
               >
                 <Flex
                   pr={8}
@@ -142,6 +147,7 @@ const Form = () => {
                       glareBorderRadius='5px'
                       tiltMaxAngleY={4}
                       tiltMaxAngleX={8}
+                      
                     >
                       <Flex p={0} my={-2} mx={-1}>
                         <FcSimCardChip size={50} />
@@ -150,7 +156,7 @@ const Form = () => {
                   </Flex>
                 </Flex>
 
-                <flex>
+                <Flex justifyContent={'center'}>
                   <Text
                     textAlign={"center"}
                     color={"white"}
@@ -161,7 +167,7 @@ const Form = () => {
                   >
                     {card.number}
                   </Text>
-                </flex>
+                </Flex>
                 <Flex justifyContent={"center"}>
                   <Flex alignItems={"center"} gap={2}>
                     <Text color={"white"} fontSize={8}>
@@ -186,6 +192,29 @@ const Form = () => {
                   </Text>
                 </Flex>
               </Flex>
+              <Flex
+                borderColor={"green"}
+                border={"1px"}
+                height={"220px"}
+                width={"350px"}
+                // mt='-240px'
+                bgGradient='linear(to-tr, gray.900 0%, gray.600 90%)'
+                borderRadius={20}
+                flexDirection={"column"}
+                shadow={"dark-lg"}
+                hidden={showCardFront}
+                pt={6}
+                className="card-back"
+              >
+                <Flex h={"40px"} backgroundColor={"black"}></Flex>
+                
+                  <Flex backgroundColor={"beige"} h={"40px"} ml={10} mr={20} mt={6} pr={4} justifyContent={'right'} alignItems={'center'} >
+                    <Text textAlign={'end'}>{card.cvv}</Text>
+                  </Flex>
+                
+
+                
+              </Flex>
             </Tilt>
           </Flex>
         </Flex>
@@ -205,6 +234,8 @@ const Form = () => {
           pt={16}
           mt={"-100px"}
           gap={4}
+          backgroundColor={"white"}
+          rounded={15}
         >
           <Flex flexDir={"column"} gap={4}>
             <FormControl>
@@ -259,8 +290,8 @@ const Form = () => {
                 CVV
               </FormLabel>
               <Input
-              onFocus={handleCvvFocus}
-              onBlur={handleCvvBlur}
+                onFocus={handleCvvFocus}
+                onBlur={handleCvvBlur}
                 as={InputMask}
                 mask='999'
                 maskChar={null}
