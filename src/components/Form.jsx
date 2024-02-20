@@ -1,3 +1,5 @@
+
+
 import { Flex } from "@chakra-ui/layout"
 import {
   FormControl,
@@ -22,7 +24,10 @@ import { FcSimCardChip } from "react-icons/fc"
 import { BsBank } from "react-icons/bs"
 
 import Tilt from "react-parallax-tilt"
-import InputMask from "react-input-mask";
+import InputMask from "react-input-mask"
+import './card.css'
+
+// import autoAnimate from "@formkit/auto-animate"
 
 const Form = () => {
   const [card, setCard] = useState({
@@ -34,35 +39,43 @@ const Form = () => {
   })
 
   const onChange = (e) => {
-    if (e.target.name=='number' && !e.target.value) {
+    if (e.target.name == "number" && !e.target.value) {
       setCard({
         ...card,
-        [e.target.name]: '0000  0000  0000  0000'
+        [e.target.name]: "0000  0000  0000  0000",
       })
-    } else if (e.target.name=='name' && !e.target.value){
+    } else if (e.target.name == "name" && !e.target.value) {
       setCard({
         ...card,
-        [e.target.name]: 'CARDHOLDER'
+        [e.target.name]: "CARDHOLDER",
       })
-    } else if (e.target.name=='exp' && !e.target.value){
+    } else if (e.target.name == "exp" && !e.target.value) {
       setCard({
         ...card,
-        [e.target.name]: '00/00'
+        [e.target.name]: "00/00",
       })
-    } else if (e.target.name=='cvv' && !e.target.value){
+    } else if (e.target.name == "cvv" && !e.target.value) {
       setCard({
         ...card,
-        [e.target.name]: '000'
+        [e.target.name]: "000",
+      })
+    } else {
+      setCard({
+        ...card,
+        [e.target.name]: e.target.value.toUpperCase(),
       })
     }
-     else {
-      setCard({
-        ...card,
-        [e.target.name]: e.target.value.toUpperCase()
-      })
-    }
-    
   }
+
+  const [isCvvFocused, setIsCvvFocused] = useState(false);
+
+  const handleCvvFocus = () => {
+    setIsCvvFocused(true);
+  };
+
+  const handleCvvBlur = () => {
+    setIsCvvFocused(false);
+  };
 
   return (
     <Box backdropFilter='auto' backdropBlur='8px'>
@@ -89,6 +102,8 @@ const Form = () => {
               glareBorderRadius='20px'
               tiltMaxAngleY={2}
               tiltMaxAngleX={5}
+              className={isCvvFocused ? "flip" : ""}
+              flipHorizontally={isCvvFocused}
             >
               <Flex
                 borderColor={"green"}
@@ -143,7 +158,6 @@ const Form = () => {
                     fontFamily={"numbers"}
                     whiteSpace={"preserve"}
                     textShadow='2px 2px black'
-                    
                   >
                     {card.number}
                   </Text>
@@ -194,26 +208,67 @@ const Form = () => {
         >
           <Flex flexDir={"column"} gap={4}>
             <FormControl>
-              <FormLabel>{"Cardholder's Name"}</FormLabel>
-              <Input type='text' name="name" onChange={onChange} placeholder="Joe Doe"/>
-              {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
-            </FormControl>
-            <FormControl>
-              <FormLabel>Card Number</FormLabel>
-              <Input as={InputMask} mask='9999  9999  9999  9999' maskChar={null} name="number" onChange={onChange}  placeholder="●●●●  ●●●●  ●●●●  ●●●●"/>
+              <FormLabel m={0} p={0} pl={4} fontSize={"sm"}>
+                {"Cardholder's Name"}
+              </FormLabel>
+              <Input
+                type='text'
+                name='name'
+                onChange={onChange}
+                placeholder='Joe Doe'
+              />
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
           </Flex>
 
-          <Flex gap={8}>
+          <Flex>
             <FormControl>
-              <FormLabel>Expiration Date</FormLabel>
-              <Input as={InputMask} mask='99/99' maskChar={null} name="exp" onChange={onChange} placeholder="01/20"/>
+              <FormLabel m={0} p={0} pl={4} fontSize={"sm"}>
+                Card Number
+              </FormLabel>
+              <Input
+                as={InputMask}
+                mask='9999  9999  9999  9999'
+                maskChar={null}
+                name='number'
+                onChange={onChange}
+                placeholder='●●●●  ●●●●  ●●●●  ●●●●'
+                htmlSize={20}
+                width='auto'
+              />
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
             <FormControl>
-              <FormLabel>CVV</FormLabel>
-              <Input as={InputMask} mask='999' maskChar={null} name="cvv" onChange={onChange} placeholder="●●●"/>
+              <FormLabel m={0} p={0} fontSize={"sm"} textAlign={"center"}>
+                Expiration
+              </FormLabel>
+              <Input
+                as={InputMask}
+                mask='99/99'
+                maskChar={null}
+                name='exp'
+                onChange={onChange}
+                placeholder='MM/YY'
+                htmlSize={4}
+                width='auto'
+              />
+              {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
+            </FormControl>
+            <FormControl>
+              <FormLabel m={0} p={0} fontSize={"sm"} textAlign={"center"}>
+                CVV
+              </FormLabel>
+              <Input
+              onFocus={handleCvvFocus}
+              onBlur={handleCvvBlur}
+                as={InputMask}
+                mask='999'
+                maskChar={null}
+                name='cvv'
+                onChange={onChange}
+                placeholder='●●●'
+                width='16'
+              />
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
           </Flex>
