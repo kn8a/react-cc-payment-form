@@ -6,18 +6,21 @@ import {
   Text,
   Button,
   Box,
+  Image,
 } from "@chakra-ui/react"
 import { useState } from "react"
 
-// import { FaCcVisa } from "react-icons/fa6"
-// import { FaCcMastercard } from "react-icons/fa6"
-// import { FaCcDiscover } from "react-icons/fa6"
-// import { FaCcAmex } from "react-icons/fa6"
-// import { FaCcJcb } from "react-icons/fa6"
-// import { FaHashtag } from "react-icons/fa6"
-// import { FaCreditCard } from "react-icons/fa6"
-// import { FaCalendarCheck } from "react-icons/fa6"
-// import { FaBasketShopping } from "react-icons/fa6"
+import { FaCcVisa } from "react-icons/fa6"
+import { RiVisaLine } from "react-icons/ri";
+
+import { FaCcMastercard } from "react-icons/fa6"
+import { FaCcDiscover } from "react-icons/fa6"
+import { FaCcAmex } from "react-icons/fa6"
+import { FaCcJcb } from "react-icons/fa6"
+import { FaHashtag } from "react-icons/fa6"
+import { FaCreditCard } from "react-icons/fa6"
+import { FaCalendarCheck } from "react-icons/fa6"
+import { FaBasketShopping } from "react-icons/fa6"
 import { FcSimCardChip } from "react-icons/fc"
 import { BsBank } from "react-icons/bs"
 
@@ -25,7 +28,20 @@ import Tilt from "react-parallax-tilt"
 import InputMask from "react-input-mask"
 import "./card.css"
 
+import visaLogo from '../assets/mono-outline/visa.svg'
+import mastercardLogo from '../assets/mono-outline/mastercard.svg'
+import amexLogo from '../assets/mono-outline/amex.svg'
+import jcbLogo from '../assets/mono-outline/jcb.svg'
+import discoverLogo from '../assets/mono-outline/discover.svg'
 // import autoAnimate from "@formkit/auto-animate"
+
+const logos = {
+  visa: visaLogo,
+  mastercard: mastercardLogo,
+  amex: amexLogo,
+  jcb: jcbLogo,
+  discover: discoverLogo,
+}
 
 const Form = () => {
   const [card, setCard] = useState({
@@ -103,7 +119,7 @@ const Form = () => {
               glareBorderRadius='20px'
               tiltMaxAngleY={2}
               tiltMaxAngleX={5}
-              className={isCvvFocused ? "flip" : ""}
+              
               flipHorizontally={isCvvFocused}
               transitionSpeed={1200}
               
@@ -116,10 +132,12 @@ const Form = () => {
                 width={"350px"}
                 // mt='-240px'
                 bgGradient='linear(to-tr, gray.900 0%, gray.600 90%)'
+                // backgroundImage={'https://source.unsplash.com/random/350x220/?dark,abstract'}
                 borderRadius={20}
                 flexDirection={"column"}
                 shadow={"dark-lg"}
                 hidden={isCvvFocused}
+                backdropBrightness={0}
               >
                 <Flex
                   pr={8}
@@ -168,7 +186,9 @@ const Form = () => {
                     {card.number}
                   </Text>
                 </Flex>
-                <Flex justifyContent={"center"}>
+                <Flex justifyContent={'space-between'}>
+                  <Flex flexDirection={'column'}  flex={1}>
+                  <Flex justifyContent={"right"}pr={10}>
                   <Flex alignItems={"center"} gap={2}>
                     <Text color={"white"} fontSize={8}>
                       Valid Thru
@@ -182,7 +202,7 @@ const Form = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex pl={8}>
+                <Flex pl={9}>
                   <Text
                     color={"white"}
                     fontFamily={"numbers"}
@@ -191,6 +211,13 @@ const Form = () => {
                     {card.name}
                   </Text>
                 </Flex>
+                  </Flex>
+                
+                <Flex m={0} p={0} maxW={'68px'} mr={8} filter='invert(120) brightness(120%)' >
+                  <Image src={logos.visa}></Image>
+                </Flex>
+                </Flex>
+                
               </Flex>
               <Flex
                 borderColor={"green"}
@@ -237,6 +264,14 @@ const Form = () => {
           backgroundColor={"white"}
           rounded={15}
         >
+          <Flex filter={'invert(100%)'}>
+            <FaCcVisa/>
+            <FaCcMastercard/>
+            <FaCcAmex/>
+            <FaCcDiscover/>
+            <FaCcJcb/>
+
+          </Flex>
           <Flex flexDir={"column"} gap={4}>
             <FormControl>
               <FormLabel m={0} p={0} pl={4} fontSize={"sm"}>
