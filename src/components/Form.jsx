@@ -8,19 +8,19 @@ import {
   Box,
   Image,
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState} from "react"
 
 import { FaCcVisa } from "react-icons/fa6"
-import { RiVisaLine } from "react-icons/ri";
+// import { RiVisaLine } from "react-icons/ri"
 
 import { FaCcMastercard } from "react-icons/fa6"
 import { FaCcDiscover } from "react-icons/fa6"
 import { FaCcAmex } from "react-icons/fa6"
 import { FaCcJcb } from "react-icons/fa6"
-import { FaHashtag } from "react-icons/fa6"
-import { FaCreditCard } from "react-icons/fa6"
-import { FaCalendarCheck } from "react-icons/fa6"
-import { FaBasketShopping } from "react-icons/fa6"
+// import { FaHashtag } from "react-icons/fa6"
+// import { FaCreditCard } from "react-icons/fa6"
+// import { FaCalendarCheck } from "react-icons/fa6"
+// import { FaBasketShopping } from "react-icons/fa6"
 import { FcSimCardChip } from "react-icons/fc"
 import { BsBank } from "react-icons/bs"
 
@@ -28,14 +28,17 @@ import Tilt from "react-parallax-tilt"
 import InputMask from "react-input-mask"
 import "./card.css"
 
-import visaLogo from '../assets/mono-outline/visa.svg'
-import mastercardLogo from '../assets/mono-outline/mastercard.svg'
-import amexLogo from '../assets/mono-outline/amex.svg'
-import jcbLogo from '../assets/mono-outline/jcb.svg'
-import discoverLogo from '../assets/mono-outline/discover.svg'
+import visaLogo from "../assets/rounded/visa.svg"
+import mastercardLogo from "../assets/rounded/mastercard.svg"
+import amexLogo from "../assets/rounded/amex.svg"
+import jcbLogo from "../assets/rounded/jcb.svg"
+import discoverLogo from "../assets/rounded/discover.svg"
+import { motion } from "framer-motion"
+
 // import autoAnimate from "@formkit/auto-animate"
 
 const logos = {
+  default: '',
   visa: visaLogo,
   mastercard: mastercardLogo,
   amex: amexLogo,
@@ -43,7 +46,62 @@ const logos = {
   discover: discoverLogo,
 }
 
+const color = {
+  default: 'linear(to-tr, gray.900 0%, gray.600 90%)',
+  visa: 'linear(to-br, orange.300 0%, blue.600 50%,gray.600 80%)',
+  mastercard: 'linear(to-br, orange.900 0%, gray.400 90%)',
+  amex: 'linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)',
+  jcb: 'linear(to-br, blue.400, red.300, green.400)',
+  discover: 'linear(to-br, orange.500 0%, purple.800 90%)',
+}
+
+function detectCreditCardType(cardNumber) {
+  // Remove white spaces from the card number
+  const cleanedCardNumber = cardNumber.replace(/\s/g, '');
+
+  // Check the card type based on the minimum required digits
+  if (/^4/.test(cleanedCardNumber)) {
+      return "visa";
+  } else if (/^5[1-5]/.test(cleanedCardNumber)) {
+      return "mastercard";
+  } else if (/^3[47]/.test(cleanedCardNumber)) {
+      return "amex";
+  } else if (/^6(?:011|5[0-9]{2}|4[4-9]|22)/.test(cleanedCardNumber)) {
+      return "discover";
+  } else if (/^(?:2131|1800|35)/.test(cleanedCardNumber)) {
+      return "jcb";
+  } else if (/^(?:5[06789]|6)/.test(cleanedCardNumber)) {
+      return "maestro";
+  } else if (/^220[5]/.test(cleanedCardNumber)) {
+      return "mir";
+  } else {
+      return "default";
+  }
+}
+
+// Example usage:
+const cardNumber = "1234 5678 9012 3456"; // Replace with your credit card number
+const cardType = detectCreditCardType(cardNumber);
+console.log("Credit Card Type:", cardType);
+
+const Character = ({ char }) => {
+  
+  return (
+    <motion.span
+      initial={{ translateY:30, opacity:0}}
+      animate={{ opacity:1, translateY:0}}
+      transition={{ duration: 0.07, type:'spring', bounce:100}}
+      style={{ display: 'inline-block' }}
+    >
+      {char}
+    </motion.span>
+  );
+};
+
+
 const Form = () => {
+  const [key, setKey] = useState(0);
+  const [cardColor, setCardColor] = useState(color.default)
   const [card, setCard] = useState({
     number: "0000  0000  0000  0000",
     name: "CARDHOLDER",
@@ -51,6 +109,14 @@ const Form = () => {
     cvv: "●●●",
     type: "",
   })
+
+  useEffect( () => {
+    
+      let type = detectCreditCardType(card.number)
+      setCard({...card, type: type})
+      setCardColor(color[type])
+      console.log(type)
+  },[card.number])
 
   const onChange = (e) => {
     if (e.target.name == "number" && !e.target.value) {
@@ -77,8 +143,12 @@ const Form = () => {
       setCard({
         ...card,
         [e.target.name]: e.target.value.toUpperCase(),
-      })
+      }
+      )
+
     }
+    setKey(key + 1);
+    
   }
 
   const [isCvvFocused, setIsCvvFocused] = useState(false)
@@ -119,25 +189,23 @@ const Form = () => {
               glareBorderRadius='20px'
               tiltMaxAngleY={2}
               tiltMaxAngleX={5}
-              
               flipHorizontally={isCvvFocused}
               transitionSpeed={1200}
-              
             >
               <Flex
-              
                 borderColor={"green"}
                 border={"1px"}
                 height={"220px"}
                 width={"350px"}
                 // mt='-240px'
-                bgGradient='linear(to-tr, gray.900 0%, gray.600 90%)'
+                bgGradient={cardColor}
                 // backgroundImage={'https://source.unsplash.com/random/350x220/?dark,abstract'}
                 borderRadius={20}
                 flexDirection={"column"}
                 shadow={"dark-lg"}
                 hidden={isCvvFocused}
                 backdropBrightness={0}
+                
               >
                 <Flex
                   pr={8}
@@ -145,6 +213,8 @@ const Form = () => {
                   justifyContent={"flex-end"}
                   alignItems={"center"}
                   gap={4}
+                  // border={'2px'}
+                  //   borderColor={'green'}
                 >
                   <Text color={"white"} fontSize={30} fontWeight={600}>
                     Bank{" "}
@@ -165,7 +235,6 @@ const Form = () => {
                       glareBorderRadius='5px'
                       tiltMaxAngleY={4}
                       tiltMaxAngleX={8}
-                      
                     >
                       <Flex p={0} my={-2} mx={-1}>
                         <FcSimCardChip size={50} />
@@ -174,8 +243,8 @@ const Form = () => {
                   </Flex>
                 </Flex>
 
-                <Flex justifyContent={'center'}>
-                  <Text
+                <Flex justifyContent={"center"}>
+                  <Flex
                     textAlign={"center"}
                     color={"white"}
                     fontSize={26}
@@ -183,41 +252,57 @@ const Form = () => {
                     whiteSpace={"preserve"}
                     textShadow='2px 2px black'
                   >
-                    {card.number}
-                  </Text>
-                </Flex>
-                <Flex justifyContent={'space-between'}>
-                  <Flex flexDirection={'column'}  flex={1}>
-                  <Flex justifyContent={"right"}pr={10}>
-                  <Flex alignItems={"center"} gap={2}>
-                    <Text color={"white"} fontSize={8}>
-                      Valid Thru
-                    </Text>
-                    <Text
-                      color={"white"}
-                      fontFamily={"numbers"}
-                      textShadow='2px 2px black'
+                    {/* {card.number} */}
+                    <motion.div 
+                    
                     >
-                      {card.exp}
-                    </Text>
+                    {card.number.split("").map((char, index) => (
+        <Character key={index} char={char} />
+      ))}
+                    </motion.div>
+                    
                   </Flex>
                 </Flex>
-                <Flex pl={9}>
-                  <Text
-                    color={"white"}
-                    fontFamily={"numbers"}
-                    textShadow='2px 2px black'
+                <Flex justifyContent={"space-between"} >
+                  <Flex flexDirection={"column"} flex={1} >
+                    <Flex justifyContent={"right"} pr={6}>
+                      <Flex alignItems={"center"} gap={2}>
+                        <Text color={"white"} fontSize={8}>
+                          Valid Thru
+                        </Text>
+                        <Text
+                          color={"white"}
+                          fontFamily={"numbers"}
+                          textShadow='1px 2px black'
+                        >
+                          {card.exp}
+                        </Text>
+                      </Flex>
+                    </Flex>
+                    <Flex pl={9}>
+                      <Text
+                        color={"white"}
+                        fontFamily={"numbers"}
+                        textShadow='1px 2px black'
+                      >
+                        {card.name}
+                      </Text>
+                    </Flex>
+                  </Flex>
+
+                  <Flex
+                    m={0}
+                    p={0}
+                    maxW={'78px'}
+                    mr={6}
+                    alignItems={'center'}
+                    justifyItems={'start'}
+                    
+                    // filter='invert(120) brightness(120%)'
                   >
-                    {card.name}
-                  </Text>
-                </Flex>
+                    <Image width={'100%'} maxH={'70px'} src={logos[card.type]}></Image>
                   </Flex>
-                
-                <Flex m={0} p={0} maxW={'68px'} mr={8} filter='invert(120) brightness(120%)' >
-                  <Image src={logos.visa}></Image>
                 </Flex>
-                </Flex>
-                
               </Flex>
               <Flex
                 borderColor={"green"}
@@ -231,16 +316,22 @@ const Form = () => {
                 shadow={"dark-lg"}
                 hidden={showCardFront}
                 pt={6}
-                className="card-back"
+                className='card-back'
               >
                 <Flex h={"40px"} backgroundColor={"black"}></Flex>
-                
-                  <Flex backgroundColor={"beige"} h={"40px"} ml={10} mr={20} mt={6} pr={4} justifyContent={'right'} alignItems={'center'} >
-                    <Text textAlign={'end'}>{card.cvv}</Text>
-                  </Flex>
-                
 
-                
+                <Flex
+                  backgroundColor={"beige"}
+                  h={"40px"}
+                  ml={10}
+                  mr={20}
+                  mt={6}
+                  pr={4}
+                  justifyContent={"right"}
+                  alignItems={"center"}
+                >
+                  <Text textAlign={"end"}>{card.cvv}</Text>
+                </Flex>
               </Flex>
             </Tilt>
           </Flex>
@@ -264,13 +355,12 @@ const Form = () => {
           backgroundColor={"white"}
           rounded={15}
         >
-          <Flex filter={'invert(100%)'}>
-            <FaCcVisa/>
-            <FaCcMastercard/>
-            <FaCcAmex/>
-            <FaCcDiscover/>
-            <FaCcJcb/>
-
+          <Flex filter={"invert(100%)"}>
+            <FaCcVisa />
+            <FaCcMastercard />
+            <FaCcAmex />
+            <FaCcDiscover />
+            <FaCcJcb />
           </Flex>
           <Flex flexDir={"column"} gap={4}>
             <FormControl>

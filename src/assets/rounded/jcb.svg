@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.6, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1131 616.1" style="enable-background:new 0 0 1131 616.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill:url(#SVGID_2_);}
+	.st3{fill:url(#SVGID_3_);}
+	.st4{fill:url(#SVGID_4_);}
+	.st5{fill:url(#SVGID_5_);}
+</style>
+<g>
+	<path class="st0" d="M971,491.9c0,68.5-55.7,124.2-124.2,124.2H171V124.2C171,55.7,226.7,0,295.2,0H971V491.9z"/>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="357.918" y1="590.8135" x2="360.8171" y2="590.8135" gradientTransform="matrix(75.7946 0 0 -46.9438 -26420.918 28077.3047)">
+		<stop  offset="0" style="stop-color:#007940"/>
+		<stop  offset="0.2285" style="stop-color:#00873F"/>
+		<stop  offset="0.7433" style="stop-color:#40A737"/>
+		<stop  offset="1" style="stop-color:#5CB531"/>
+	</linearGradient>
+	<path class="st1" d="M751,365.8h51.3c1.5,0,4.9-0.5,6.4-0.5c9.8-2,18.1-10.8,18.1-23c0-11.7-8.3-20.5-18.1-23
+		c-1.5-0.5-4.4-0.5-6.4-0.5H751V365.8z"/>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="360.1364" y1="589.0456" x2="361.1364" y2="589.0456" gradientTransform="matrix(219.5599 0 0 -533.4963 -78364.1875 314561.9688)">
+		<stop  offset="0" style="stop-color:#007940"/>
+		<stop  offset="0.2285" style="stop-color:#00873F"/>
+		<stop  offset="0.7433" style="stop-color:#40A737"/>
+		<stop  offset="1" style="stop-color:#5CB531"/>
+	</linearGradient>
+	<path class="st2" d="M796.4,41.6c-48.9,0-89,39.6-89,89V223h125.7c2.9,0,6.4,0,8.8,0.5c28.4,1.5,49.4,16.1,49.4,41.6
+		c0,20-14.2,37.2-40.6,40.6v1c28.9,2,50.9,18.1,50.9,43c0,26.9-24.4,44.5-56.7,44.5H706.9v180.9h130.6c48.9,0,89-39.6,89-89V41.6
+		H796.4L796.4,41.6z"/>
+	
+		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="357.6357" y1="590.9897" x2="360.8004" y2="590.9897" gradientTransform="matrix(69.4376 0 0 -43.0318 -24126.0391 25702.2344)">
+		<stop  offset="0" style="stop-color:#007940"/>
+		<stop  offset="0.2285" style="stop-color:#00873F"/>
+		<stop  offset="0.7433" style="stop-color:#40A737"/>
+		<stop  offset="1" style="stop-color:#5CB531"/>
+	</linearGradient>
+	<path class="st3" d="M820.4,270.9c0-11.7-8.3-19.6-18.1-21c-1,0-3.4-0.5-4.9-0.5H751v43h46.5c1.5,0,4.4,0,4.9-0.5
+		C812.1,290.5,820.4,282.6,820.4,270.9L820.4,270.9z"/>
+	
+		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="360.1364" y1="589.0457" x2="361.1527" y2="589.0457" gradientTransform="matrix(219.5599 0 0 -533.0073 -78856.1172 314273.75)">
+		<stop  offset="0" style="stop-color:#1F286F"/>
+		<stop  offset="0.4751" style="stop-color:#004E94"/>
+		<stop  offset="0.8261" style="stop-color:#0066B1"/>
+		<stop  offset="1" style="stop-color:#006FBC"/>
+	</linearGradient>
+	<path class="st4" d="M304.5,41.6c-48.9,0-89,39.6-89,89v219.6c24.9,12.2,50.9,20,76.8,20c30.8,0,47.4-18.6,47.4-44V222.5H416v103.2
+		c0,40.1-24.9,72.9-109.5,72.9c-51.3,0-91.4-11.2-91.4-11.2v187.3h130.6c48.9,0,89-39.6,89-89v-444H304.5L304.5,41.6z"/>
+	
+		<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="360.1289" y1="589.0454" x2="361.116" y2="589.0454" gradientTransform="matrix(219.5599 0 0 -533.9854 -78609.6641 314850.1563)">
+		<stop  offset="0" style="stop-color:#6C2C2F"/>
+		<stop  offset="0.1735" style="stop-color:#882730"/>
+		<stop  offset="0.5731" style="stop-color:#BE1833"/>
+		<stop  offset="0.8585" style="stop-color:#DC0436"/>
+		<stop  offset="1" style="stop-color:#E60039"/>
+	</linearGradient>
+	<path class="st5" d="M550.5,41.6c-48.9,0-89,39.6-89,89v116.4c22.5-19.1,61.6-31.3,124.7-28.4c33.7,1.5,69.9,10.8,69.9,10.8V267
+		c-18.1-9.3-39.6-17.6-67.5-19.6c-47.9-3.4-76.8,20-76.8,61.1c0,41.6,28.9,65,76.8,61.1c27.9-2,49.4-10.8,67.5-19.6v37.7
+		c0,0-35.7,9.3-69.9,10.8c-63.1,2.9-102.2-9.3-124.7-28.4v205.4H592c48.9,0,89-39.6,89-89v-445H550.5L550.5,41.6z"/>
+</g>
+</svg>
