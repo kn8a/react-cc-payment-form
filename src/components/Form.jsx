@@ -7,8 +7,17 @@ import {
   Button,
   Box,
   Image,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from "@chakra-ui/react"
-import { useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 
 import { FaCcVisa } from "react-icons/fa6"
 // import { RiVisaLine } from "react-icons/ri"
@@ -38,7 +47,7 @@ import { motion } from "framer-motion"
 // import autoAnimate from "@formkit/auto-animate"
 
 const logos = {
-  default: '',
+  default: "",
   visa: visaLogo,
   mastercard: mastercardLogo,
   amex: amexLogo,
@@ -47,60 +56,57 @@ const logos = {
 }
 
 const color = {
-  default: 'linear(to-tr, gray.900 0%, gray.600 90%)',
-  visa: 'linear(to-br, orange.300 0%, blue.600 50%,gray.600 80%)',
-  mastercard: 'linear(to-br, orange.900 0%, gray.400 90%)',
-  amex: 'linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)',
-  jcb: 'linear(to-br, blue.400, red.300, green.400)',
-  discover: 'linear(to-br, orange.500 0%, purple.800 90%)',
+  default: "linear(to-tr, gray.900 0%, gray.600 90%)",
+  visa: "linear(to-br, orange.300 0%, blue.600 50%,gray.600 80%)",
+  mastercard: "linear(to-br, orange.900 0%, gray.400 90%)",
+  amex: "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
+  jcb: "linear(to-br, blue.400, red.300, green.400)",
+  discover: "linear(to-br, orange.500 0%, purple.800 90%)",
 }
 
 function detectCreditCardType(cardNumber) {
   // Remove white spaces from the card number
-  const cleanedCardNumber = cardNumber.replace(/\s/g, '');
+  const cleanedCardNumber = cardNumber.replace(/\s/g, "")
 
-  // Check the card type based on the minimum required digits
   if (/^4/.test(cleanedCardNumber)) {
-      return "visa";
-  } else if (/^5[1-5]/.test(cleanedCardNumber)) {
-      return "mastercard";
+    return "visa"
+  } else if (/^(5[1-5]|6(?:011|5[0-9]{2}|4[4-9]|22))/.test(cleanedCardNumber)) {
+    return "mastercard"
   } else if (/^3[47]/.test(cleanedCardNumber)) {
-      return "amex";
+    return "amex"
   } else if (/^6(?:011|5[0-9]{2}|4[4-9]|22)/.test(cleanedCardNumber)) {
-      return "discover";
+    return "discover"
   } else if (/^(?:2131|1800|35)/.test(cleanedCardNumber)) {
-      return "jcb";
+    return "jcb"
   } else if (/^(?:5[06789]|6)/.test(cleanedCardNumber)) {
-      return "maestro";
+    return "mastercard" // Maestro merged with Mastercard
   } else if (/^220[5]/.test(cleanedCardNumber)) {
-      return "mir";
+    return "mir"
   } else {
-      return "default";
+    return "default"
   }
 }
 
 // Example usage:
-const cardNumber = "1234 5678 9012 3456"; // Replace with your credit card number
-const cardType = detectCreditCardType(cardNumber);
-console.log("Credit Card Type:", cardType);
+const cardNumber = "1234 5678 9012 3456" // Replace with your credit card number
+const cardType = detectCreditCardType(cardNumber)
+console.log("Credit Card Type:", cardType)
 
 const Character = ({ char }) => {
-  
   return (
     <motion.span
-      initial={{ translateY:30, opacity:0}}
-      animate={{ opacity:1, translateY:0}}
-      transition={{ duration: 0.07, type:'spring', bounce:100}}
-      style={{ display: 'inline-block' }}
+      initial={{ translateY: 30, opacity: 0 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ duration: 0.07, type: "spring", bounce: 100 }}
+      style={{ display: "inline-block" }}
     >
       {char}
     </motion.span>
-  );
-};
+  )
+}
 
-
-const Form = () => {
-  const [key, setKey] = useState(0);
+const Form = (order) => {
+  const [key, setKey] = useState(0)
   const [cardColor, setCardColor] = useState(color.default)
   const [card, setCard] = useState({
     number: "0000  0000  0000  0000",
@@ -110,13 +116,13 @@ const Form = () => {
     type: "",
   })
 
-  useEffect( () => {
-    
-      let type = detectCreditCardType(card.number)
-      setCard({...card, type: type})
-      setCardColor(color[type])
-      console.log(type)
-  },[card.number])
+  console.log(order)
+  useEffect(() => {
+    let type = detectCreditCardType(card.number)
+    setCard({ ...card, type: type })
+    setCardColor(color[type])
+    console.log(type)
+  }, [card.number])
 
   const onChange = (e) => {
     if (e.target.name == "number" && !e.target.value) {
@@ -143,12 +149,9 @@ const Form = () => {
       setCard({
         ...card,
         [e.target.name]: e.target.value.toUpperCase(),
-      }
-      )
-
+      })
     }
-    setKey(key + 1);
-    
+    setKey(key + 1)
   }
 
   const [isCvvFocused, setIsCvvFocused] = useState(false)
@@ -205,7 +208,6 @@ const Form = () => {
                 shadow={"dark-lg"}
                 hidden={isCvvFocused}
                 backdropBrightness={0}
-                
               >
                 <Flex
                   pr={8}
@@ -253,18 +255,15 @@ const Form = () => {
                     textShadow='2px 2px black'
                   >
                     {/* {card.number} */}
-                    <motion.div 
-                    
-                    >
-                    {card.number.split("").map((char, index) => (
-        <Character key={index} char={char} />
-      ))}
+                    <motion.div>
+                      {card.number.split("").map((char, index) => (
+                        <Character key={index} char={char} />
+                      ))}
                     </motion.div>
-                    
                   </Flex>
                 </Flex>
-                <Flex justifyContent={"space-between"} >
-                  <Flex flexDirection={"column"} flex={1} >
+                <Flex justifyContent={"space-between"}>
+                  <Flex flexDirection={"column"} flex={1}>
                     <Flex justifyContent={"right"} pr={6}>
                       <Flex alignItems={"center"} gap={2}>
                         <Text color={"white"} fontSize={8}>
@@ -293,14 +292,18 @@ const Form = () => {
                   <Flex
                     m={0}
                     p={0}
-                    maxW={'78px'}
+                    w={"78px"}
                     mr={6}
-                    alignItems={'center'}
-                    justifyItems={'start'}
-                    
+                    alignItems={"center"}
+                    justifyItems={"start"}
+
                     // filter='invert(120) brightness(120%)'
                   >
-                    <Image width={'100%'} maxH={'70px'} src={logos[card.type]}></Image>
+                    <Image
+                      width={"100%"}
+                      maxH={"70px"}
+                      src={logos[card.type]}
+                    ></Image>
                   </Flex>
                 </Flex>
               </Flex>
@@ -351,17 +354,10 @@ const Form = () => {
           p={10}
           pt={16}
           mt={"-100px"}
-          gap={4}
+          gap={3}
           backgroundColor={"white"}
           rounded={15}
         >
-          <Flex filter={"invert(100%)"}>
-            <FaCcVisa />
-            <FaCcMastercard />
-            <FaCcAmex />
-            <FaCcDiscover />
-            <FaCcJcb />
-          </Flex>
           <Flex flexDir={"column"} gap={4}>
             <FormControl>
               <FormLabel m={0} p={0} pl={4} fontSize={"sm"}>
@@ -427,6 +423,9 @@ const Form = () => {
               />
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
+          </Flex>
+          <Flex>
+            {}
           </Flex>
           <Flex
             justifyContent={"space-evenly"}
