@@ -7,29 +7,14 @@ import {
   Button,
   Box,
   Image,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 
-import { FaCcVisa } from "react-icons/fa6"
-// import { RiVisaLine } from "react-icons/ri"
-
-import { FaCcMastercard } from "react-icons/fa6"
-import { FaCcDiscover } from "react-icons/fa6"
-import { FaCcAmex } from "react-icons/fa6"
-import { FaCcJcb } from "react-icons/fa6"
-// import { FaHashtag } from "react-icons/fa6"
-// import { FaCreditCard } from "react-icons/fa6"
-// import { FaCalendarCheck } from "react-icons/fa6"
-// import { FaBasketShopping } from "react-icons/fa6"
 import { FcSimCardChip } from "react-icons/fc"
 import { BsBank } from "react-icons/bs"
 
@@ -105,7 +90,7 @@ const Character = ({ char }) => {
   )
 }
 
-const Form = (order) => {
+const Form = (props) => {
   const [key, setKey] = useState(0)
   const [cardColor, setCardColor] = useState(color.default)
   const [card, setCard] = useState({
@@ -116,7 +101,7 @@ const Form = (order) => {
     type: "",
   })
 
-  console.log(order)
+  console.log(props.order.items)
   useEffect(() => {
     let type = detectCreditCardType(card.number)
     setCard({ ...card, type: type })
@@ -296,8 +281,6 @@ const Form = (order) => {
                     mr={6}
                     alignItems={"center"}
                     justifyItems={"start"}
-
-                    // filter='invert(120) brightness(120%)'
                   >
                     <Image
                       width={"100%"}
@@ -312,7 +295,6 @@ const Form = (order) => {
                 border={"1px"}
                 height={"220px"}
                 width={"350px"}
-                // mt='-240px'
                 bgGradient='linear(to-tr, gray.900 0%, gray.600 90%)'
                 borderRadius={20}
                 flexDirection={"column"}
@@ -424,17 +406,73 @@ const Form = (order) => {
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
           </Flex>
-          <Flex>
-            {}
-          </Flex>
+          <Accordion allowToggle mt={3} borderColor={"white"}>
+            <AccordionItem>
+              <h2>
+                <AccordionButton
+                  rounded={5}
+                  border={"1px"}
+                  borderColor={"gray.200"}
+                >
+                  <Box as='span' flex='1' textAlign='left'>
+                    Order Summery
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={2}>
+                <Flex flexDirection={"column"} gap={2}>
+                  {props.order.items.map((orderItem) => {
+                    return (
+                      <Flex
+                        key={orderItem.name}
+                        flexDirection={"column"}
+                        borderBottom={"2px"}
+                        borderColor={"gray.200"}
+                      >
+                        <Flex justifyContent={"space-between"}>
+                          <Text fontWeight={600}>{orderItem.name}</Text>
+                          <Flex alignItems={"center"}>
+                            <Text fontSize={"sm"}>Qty: {orderItem.qty}</Text>
+                          </Flex>
+                        </Flex>
+                        <Flex justifyContent={"space-between"}>
+                          <Flex alignItems={"center"}>
+                            <Text fontSize={"sm"}>
+                              Price: ${orderItem.price}
+                            </Text>
+                          </Flex>
+                          <Flex alignItems={"center"}>
+                            <Text fontWeight={600}>
+                              Total: ${orderItem.itemTotal}
+                            </Text>
+                          </Flex>
+                        </Flex>
+                      </Flex>
+                    )
+                  })}
+                  <Flex
+                    justifyContent={"space-between"}
+                    fontSize={"lg"}
+                    fontWeight={600}
+                    mt={2}
+                  >
+                    <Text>Order Total:</Text>
+                    <Text>${props.order.orderTotal}</Text>
+                  </Flex>
+                </Flex>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+
           <Flex
             justifyContent={"space-evenly"}
-            mt={10}
+            mt={3}
             flexDirection={"column"}
             gap={4}
           >
-            <Button colorScheme='blue' size={"lg"}>
-              Process Payment
+            <Button colorScheme='green' size={"lg"}>
+              Pay ${props.order.orderTotal}
             </Button>
             <Button size={"sm"}>Back to Cart</Button>
           </Flex>

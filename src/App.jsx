@@ -6,13 +6,13 @@ import Form from './components/Form'
 const order = {
   items: [
     {
-      name: 'Teal T-shit',
+      name: 'Teal T-Shirt',
       qty: 2,
       price: 12.98,
       itemTotal: 25.96
     },
     {
-      name: 'White Sneakers (pair)',
+      name: 'White Sneakers',
       qty: 1,
       price: 44.98,
       itemTotal: 44.98
