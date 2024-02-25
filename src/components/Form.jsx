@@ -101,7 +101,6 @@ const Form = (props) => {
     type: "",
   })
 
-  console.log(props.order.items)
   useEffect(() => {
     let type = detectCreditCardType(card.number)
     setCard({ ...card, type: type })
