@@ -42,10 +42,10 @@ const logos = {
 
 const color = {
   default: "linear(to-tr, gray.900 0%, gray.600 90%)",
-  visa: "linear(to-br, orange.300 0%, blue.600 50%,gray.600 80%)",
-  mastercard: "linear(to-br, orange.900 0%, gray.400 90%)",
+  visa: "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)",
+  mastercard: "linear(to-br, red.800 20%, yellow.700 70%,)",
   amex: "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
-  jcb: "linear(to-br, blue.400, red.300, green.400)",
+  jcb: "linear(to-br, blue.800 20%, red.800, green.800 80%)",
   discover: "linear(to-br, orange.500 0%, purple.800 90%)",
 }
 
@@ -72,10 +72,6 @@ function detectCreditCardType(cardNumber) {
   }
 }
 
-// Example usage:
-const cardNumber = "1234 5678 9012 3456" // Replace with your credit card number
-const cardType = detectCreditCardType(cardNumber)
-console.log("Credit Card Type:", cardType)
 
 const Character = ({ char }) => {
   return (
@@ -180,8 +176,8 @@ const Form = (props) => {
               transitionSpeed={1200}
             >
               <Flex
-                borderColor={"green"}
-                border={"1px"}
+                // borderColor={"green"}
+                // border={"1px"}
                 height={"220px"}
                 width={"350px"}
                 // mt='-240px'
@@ -262,11 +258,12 @@ const Form = (props) => {
                         </Text>
                       </Flex>
                     </Flex>
-                    <Flex pl={9}>
-                      <Text
+                    <Flex pl={9} maxW={'240px'} >
+                      <Text 
                         color={"white"}
                         fontFamily={"numbers"}
                         textShadow='1px 2px black'
+                        textOverflow={'clip'}
                       >
                         {card.name}
                       </Text>
@@ -345,6 +342,7 @@ const Form = (props) => {
                 {"Cardholder's Name"}
               </FormLabel>
               <Input
+              maxLength={22}
                 type='text'
                 name='name'
                 onChange={onChange}
@@ -414,7 +412,7 @@ const Form = (props) => {
                   borderColor={"gray.200"}
                 >
                   <Box as='span' flex='1' textAlign='left'>
-                    Order Summery
+                    View Order Summery
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
@@ -430,7 +428,7 @@ const Form = (props) => {
                         borderColor={"gray.200"}
                       >
                         <Flex justifyContent={"space-between"}>
-                          <Text fontWeight={600}>{orderItem.name}</Text>
+                          <Text fontWeight={600} fontSize={"sm"}>{orderItem.name}</Text>
                           <Flex alignItems={"center"}>
                             <Text fontSize={"sm"}>Qty: {orderItem.qty}</Text>
                           </Flex>
@@ -442,7 +440,7 @@ const Form = (props) => {
                             </Text>
                           </Flex>
                           <Flex alignItems={"center"}>
-                            <Text fontWeight={600}>
+                            <Text fontWeight={600} fontSize={"sm"}>
                               Total: ${orderItem.itemTotal}
                             </Text>
                           </Flex>
