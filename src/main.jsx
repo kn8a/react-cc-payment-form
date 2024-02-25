@@ -24,7 +24,12 @@ const fonts = {
   numbers: `'Oxanium Variable', system-ui`,
 }
 
-const theme = extendTheme({ colors, fonts })
+const config = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+}
+
+const theme = extendTheme({ config, colors, fonts })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>

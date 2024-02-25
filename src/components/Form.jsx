@@ -12,6 +12,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  background,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 
@@ -27,6 +28,7 @@ import mastercardLogo from "../assets/rounded/mastercard.svg"
 import amexLogo from "../assets/rounded/amex.svg"
 import jcbLogo from "../assets/rounded/jcb.svg"
 import discoverLogo from "../assets/rounded/discover.svg"
+import mirLogo from "../assets/rounded/mir.svg"
 import { motion } from "framer-motion"
 
 // import autoAnimate from "@formkit/auto-animate"
@@ -38,6 +40,7 @@ const logos = {
   amex: amexLogo,
   jcb: jcbLogo,
   discover: discoverLogo,
+  mir: mirLogo
 }
 
 const color = {
@@ -47,6 +50,7 @@ const color = {
   amex: "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
   jcb: "linear(to-br, blue.800 20%, red.800, green.800 80%)",
   discover: "linear(to-br, orange.500 0%, purple.800 90%)",
+  mir: "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)",
 }
 
 function detectCreditCardType(cardNumber) {
@@ -176,19 +180,21 @@ const Form = (props) => {
               transitionSpeed={1200}
             >
               <Flex
-                // borderColor={"green"}
-                // border={"1px"}
+                as={motion.div}
                 height={"220px"}
                 width={"350px"}
-                // mt='-240px'
                 bgGradient={cardColor}
-                // backgroundImage={'https://source.unsplash.com/random/350x220/?dark,abstract'}
                 borderRadius={20}
                 flexDirection={"column"}
                 shadow={"dark-lg"}
                 hidden={isCvvFocused}
                 backdropBrightness={0}
+                animate={background}
+                transition={{ duration: 2, type: "tween", ease: "easeInOut" }}
               >
+                
+                
+
                 <Flex
                   pr={8}
                   pt={2}
@@ -285,6 +291,7 @@ const Form = (props) => {
                     ></Image>
                   </Flex>
                 </Flex>
+                {/* </motion.div> */}
               </Flex>
               <Flex
                 borderColor={"green"}
