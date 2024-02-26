@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Flex } from "@chakra-ui/layout"
 import {
   FormControl,
@@ -12,7 +13,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  background,
+  useColorModeValue,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 
@@ -40,7 +41,7 @@ const logos = {
   amex: amexLogo,
   jcb: jcbLogo,
   discover: discoverLogo,
-  mir: mirLogo
+  mir: mirLogo,
 }
 
 const color = {
@@ -59,7 +60,7 @@ function detectCreditCardType(cardNumber) {
 
   if (/^4/.test(cleanedCardNumber)) {
     return "visa"
-  } else if (/^(5[1-5]|6(?:011|5[0-9]{2}|4[4-9]|22))/.test(cleanedCardNumber)) {
+  } else if (/^5[1-5]/.test(cleanedCardNumber)) {
     return "mastercard"
   } else if (/^3[47]/.test(cleanedCardNumber)) {
     return "amex"
@@ -67,7 +68,7 @@ function detectCreditCardType(cardNumber) {
     return "discover"
   } else if (/^(?:2131|1800|35)/.test(cleanedCardNumber)) {
     return "jcb"
-  } else if (/^(?:5[06789]|6)/.test(cleanedCardNumber)) {
+  } else if (/^(5[06789]|6)/.test(cleanedCardNumber)) {
     return "mastercard" // Maestro merged with Mastercard
   } else if (/^220[5]/.test(cleanedCardNumber)) {
     return "mir"
@@ -75,7 +76,6 @@ function detectCreditCardType(cardNumber) {
     return "default"
   }
 }
-
 
 const Character = ({ char }) => {
   return (
@@ -93,6 +93,9 @@ const Character = ({ char }) => {
 const Form = (props) => {
   const [key, setKey] = useState(0)
   const [cardColor, setCardColor] = useState(color.default)
+  const bgColor = useColorModeValue("white", "gray.800")
+  const borderColor = useColorModeValue("gray.200", "gray.700")
+
   const [card, setCard] = useState({
     number: "0000  0000  0000  0000",
     name: "CARDHOLDER",
@@ -105,7 +108,6 @@ const Form = (props) => {
     let type = detectCreditCardType(card.number)
     setCard({ ...card, type: type })
     setCardColor(color[type])
-    console.log(type)
   }, [card.number])
 
   const onChange = (e) => {
@@ -152,16 +154,8 @@ const Form = (props) => {
   }
 
   return (
-    <Box>
-      <Flex
-        fontFamily={"main"}
-        flexDirection={"column"}
-        // border={"1px"}
-
-        padding={8}
-        rounded={30}
-        gap={20}
-      >
+    <Box fontFamily={"main"}>
+      <Flex flexDirection={"column"} padding={0} rounded={30} gap={20}>
         <Flex justifyContent='center'>
           <Flex>
             <Tilt
@@ -180,7 +174,8 @@ const Form = (props) => {
               transitionSpeed={1200}
             >
               <Flex
-                as={motion.div}
+                // as={motion.div}
+
                 height={"220px"}
                 width={"350px"}
                 bgGradient={cardColor}
@@ -188,13 +183,10 @@ const Form = (props) => {
                 flexDirection={"column"}
                 shadow={"dark-lg"}
                 hidden={isCvvFocused}
-                backdropBrightness={0}
-                animate={background}
-                transition={{ duration: 2, type: "tween", ease: "easeInOut" }}
+                // backdropBrightness={0}
+                // animate={background}
+                // transition={{ duration: 2, type: "tween", ease: "easeInOut" }}
               >
-                
-                
-
                 <Flex
                   pr={8}
                   pt={2}
@@ -264,12 +256,12 @@ const Form = (props) => {
                         </Text>
                       </Flex>
                     </Flex>
-                    <Flex pl={9} maxW={'240px'} >
-                      <Text 
+                    <Flex pl={9} maxW={"240px"}>
+                      <Text
                         color={"white"}
                         fontFamily={"numbers"}
                         textShadow='1px 2px black'
-                        textOverflow={'clip'}
+                        textOverflow={"clip"}
                       >
                         {card.name}
                       </Text>
@@ -294,8 +286,8 @@ const Form = (props) => {
                 {/* </motion.div> */}
               </Flex>
               <Flex
-                borderColor={"green"}
-                border={"1px"}
+                // borderColor={"green"}
+                // border={"1px"}
                 height={"220px"}
                 width={"350px"}
                 bgGradient='linear(to-tr, gray.900 0%, gray.600 90%)'
@@ -318,7 +310,22 @@ const Form = (props) => {
                   justifyContent={"right"}
                   alignItems={"center"}
                 >
-                  <Text textAlign={"end"}>{card.cvv}</Text>
+                  <Text textAlign={"end"} color={"gray.900"}>
+                    {card.cvv}
+                  </Text>
+                </Flex>
+
+                <Flex alignItems={"center"} pt={6} pl={10}>
+                  <Flex
+                    m={0}
+                    p={0}
+                    w={"84px"}
+                    // mr={6}
+                    alignItems={"center"}
+                    // justifyItems={"start"}
+                  >
+                    <Image width={"100%"} src={logos[card.type]}></Image>
+                  </Flex>
                 </Flex>
               </Flex>
             </Tilt>
@@ -334,13 +341,15 @@ const Form = (props) => {
 
       </Flex> */}
         <Flex
+          // border={'2px'} borderColor={'green'}
           flexDirection={"column"}
           shadow={"md"}
-          p={10}
+          px={{ base: "2", md: "2", lg: "8" }}
           pt={16}
+          pb={4}
           mt={"-100px"}
           gap={3}
-          backgroundColor={"white"}
+          backgroundColor={bgColor}
           rounded={15}
         >
           <Flex flexDir={"column"} gap={4}>
@@ -349,7 +358,7 @@ const Form = (props) => {
                 {"Cardholder's Name"}
               </FormLabel>
               <Input
-              maxLength={22}
+                maxLength={22}
                 type='text'
                 name='name'
                 onChange={onChange}
@@ -410,16 +419,16 @@ const Form = (props) => {
               {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
           </Flex>
-          <Accordion allowToggle mt={3} borderColor={"white"}>
+          <Accordion allowToggle mt={3} borderColor={bgColor}>
             <AccordionItem>
               <h2>
                 <AccordionButton
                   rounded={5}
                   border={"1px"}
-                  borderColor={"gray.200"}
+                  borderColor={borderColor}
                 >
                   <Box as='span' flex='1' textAlign='left'>
-                    View Order Summery
+                    View Order Summary
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
@@ -431,11 +440,13 @@ const Form = (props) => {
                       <Flex
                         key={orderItem.name}
                         flexDirection={"column"}
-                        borderBottom={"2px"}
+                        borderBottom={"1px"}
                         borderColor={"gray.200"}
                       >
                         <Flex justifyContent={"space-between"}>
-                          <Text fontWeight={600} fontSize={"sm"}>{orderItem.name}</Text>
+                          <Text fontWeight={600} fontSize={"sm"}>
+                            {orderItem.name}
+                          </Text>
                           <Flex alignItems={"center"}>
                             <Text fontSize={"sm"}>Qty: {orderItem.qty}</Text>
                           </Flex>
