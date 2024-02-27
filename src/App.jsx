@@ -9,26 +9,29 @@ import { GithubLink } from "./GithubLink"
 const order = {
   items: [
     {
+      id: 100,
       name: "Teal T-Shirt",
       qty: 2,
       price: 12.98,
       itemTotal: 25.96,
     },
     {
+      id: 101,
       name: "White Sneakers",
       qty: 1,
       price: 44.98,
       itemTotal: 44.98,
     },
     {
+      id: 102,
       name: "Sunglasses",
       qty: 1,
       price: 29.98,
       itemTotal: 29.98,
     },
   ],
-  orderTotal: 100.92,
 }
+order.orderTotal = order.items.reduce((total, item) => total + item.itemTotal, 0);
 
 function App() {
   const bgGradient = useColorModeValue(

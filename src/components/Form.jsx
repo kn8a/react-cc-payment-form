@@ -44,15 +44,7 @@ const logos = {
   mir: mirLogo,
 }
 
-const color = {
-  default: "linear(to-tr, gray.900 0%, gray.600 90%)",
-  visa: "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)",
-  mastercard: "linear(to-br, red.800 20%, yellow.700 70%,)",
-  amex: "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
-  jcb: "linear(to-br, blue.800 20%, red.800, green.800 80%)",
-  discover: "linear(to-br, orange.500 0%, purple.800 90%)",
-  mir: "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)",
-}
+
 
 function detectCreditCardType(cardNumber) {
   // Remove white spaces from the card number
@@ -91,6 +83,34 @@ const Character = ({ char }) => {
 }
 
 const Form = (props) => {
+  const {
+    defaultColor,
+    visaColor,
+    mastercardColor,
+    amexColor,
+    jcbColor,
+    discoverColor,
+    mirColor,
+    cardGlare = true,
+    payButtonColor = 'green',
+    backButtonColor = 'gray',
+    issuer = "Bank",
+    cardTilt = true,
+
+  } = props;
+
+  const color = {
+    default: defaultColor || "linear(to-tr, gray.900 0%, gray.600 90%)",
+    visa: visaColor || "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)",
+    mastercard: mastercardColor || "linear(to-br, red.800 20%, yellow.700 70%,)",
+    amex: amexColor || "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
+    jcb: jcbColor || "linear(to-br, blue.800 20%, red.800, green.800 80%)",
+    discover: discoverColor || "linear(to-br, orange.500 0%, purple.800 90%)",
+    mir: mirColor || "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)",
+  };
+
+
+  
   const [key, setKey] = useState(0)
   const [cardColor, setCardColor] = useState(color.default)
   const bgColor = useColorModeValue("white", "gray.800")
@@ -159,10 +179,10 @@ const Form = (props) => {
         <Flex justifyContent='center'>
           <Flex>
             <Tilt
-              tiltEnable={true}
+              tiltEnable={cardTilt}
               trackOnWindow={true}
               tiltReverse={false}
-              glareEnable={true}
+              glareEnable={cardGlare}
               glareMaxOpacity={0.4}
               glareColor='white'
               glareReverse={false}
@@ -174,8 +194,6 @@ const Form = (props) => {
               transitionSpeed={1200}
             >
               <Flex
-                // as={motion.div}
-
                 height={"220px"}
                 width={"350px"}
                 bgGradient={cardColor}
@@ -183,9 +201,6 @@ const Form = (props) => {
                 flexDirection={"column"}
                 shadow={"dark-lg"}
                 hidden={isCvvFocused}
-                // backdropBrightness={0}
-                // animate={background}
-                // transition={{ duration: 2, type: "tween", ease: "easeInOut" }}
               >
                 <Flex
                   pr={8}
@@ -193,11 +208,9 @@ const Form = (props) => {
                   justifyContent={"flex-end"}
                   alignItems={"center"}
                   gap={4}
-                  // border={'2px'}
-                  //   borderColor={'green'}
                 >
                   <Text color={"white"} fontSize={30} fontWeight={600}>
-                    Bank{" "}
+                    {issuer}{" "}
                   </Text>
                   <BsBank size={30} color='white' />
                 </Flex>
@@ -207,7 +220,7 @@ const Form = (props) => {
                       tiltEnable={false}
                       trackOnWindow={true}
                       tiltReverse={false}
-                      glareEnable={true}
+                      glareEnable={cardGlare}
                       glareMaxOpacity={1}
                       glareColor='yellow'
                       glareReverse={false}
@@ -283,11 +296,8 @@ const Form = (props) => {
                     ></Image>
                   </Flex>
                 </Flex>
-                {/* </motion.div> */}
               </Flex>
               <Flex
-                // borderColor={"green"}
-                // border={"1px"}
                 height={"220px"}
                 width={"350px"}
                 bgGradient='linear(to-tr, gray.900 0%, gray.600 90%)'
@@ -320,9 +330,7 @@ const Form = (props) => {
                     m={0}
                     p={0}
                     w={"84px"}
-                    // mr={6}
                     alignItems={"center"}
-                    // justifyItems={"start"}
                   >
                     <Image width={"100%"} src={logos[card.type]}></Image>
                   </Flex>
@@ -331,17 +339,7 @@ const Form = (props) => {
             </Tilt>
           </Flex>
         </Flex>
-
-        {/* <Flex justifyContent={'space-around'}>
-      <FaCcVisa size={50}/>
-      <FaCcMastercard size={50}/>
-      <FaCcDiscover size={50}/>
-      <FaCcAmex size={50}/>
-      <FaCcJcb size={50}/>
-
-      </Flex> */}
         <Flex
-          // border={'2px'} borderColor={'green'}
           flexDirection={"column"}
           shadow={"md"}
           px={{ base: "2", md: "2", lg: "8" }}
@@ -364,7 +362,6 @@ const Form = (props) => {
                 onChange={onChange}
                 placeholder='Joe Doe'
               />
-              {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
           </Flex>
 
@@ -383,7 +380,6 @@ const Form = (props) => {
                 htmlSize={20}
                 width='auto'
               />
-              {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
             <FormControl>
               <FormLabel m={0} p={0} fontSize={"sm"} textAlign={"center"}>
@@ -399,7 +395,6 @@ const Form = (props) => {
                 htmlSize={4}
                 width='auto'
               />
-              {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
             <FormControl>
               <FormLabel m={0} p={0} fontSize={"sm"} textAlign={"center"}>
@@ -416,7 +411,6 @@ const Form = (props) => {
                 placeholder='●●●'
                 width='16'
               />
-              {/* <FormHelperText>{`We'll never share your email.`}</FormHelperText> */}
             </FormControl>
           </Flex>
           <Accordion allowToggle mt={3} borderColor={bgColor}>
@@ -486,10 +480,10 @@ const Form = (props) => {
             flexDirection={"column"}
             gap={4}
           >
-            <Button colorScheme='green' size={"lg"}>
+            <Button colorScheme={payButtonColor} size={"lg"}>
               Pay ${props.order.orderTotal}
             </Button>
-            <Button size={"sm"}>Back to Cart</Button>
+            <Button colorScheme={backButtonColor} size={"sm"}>Back to Cart</Button>
           </Flex>
         </Flex>
       </Flex>
