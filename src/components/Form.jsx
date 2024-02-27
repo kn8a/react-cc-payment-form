@@ -84,7 +84,7 @@ const Character = ({ char }) => {
 
 const Form = (props) => {
   const {
-    defaultColor,
+    defaultCardColor,
     visaColor,
     mastercardColor,
     amexColor,
@@ -100,7 +100,7 @@ const Form = (props) => {
   } = props;
 
   const color = {
-    default: defaultColor || "linear(to-tr, gray.900 0%, gray.600 90%)",
+    default: defaultCardColor || "linear(to-tr, gray.900 0%, gray.600 90%)",
     visa: visaColor || "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)",
     mastercard: mastercardColor || "linear(to-br, red.800 20%, yellow.700 70%,)",
     amex: amexColor || "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
