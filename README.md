@@ -18,7 +18,7 @@ Reusable Credit Card Payment (checkout) Form with changing colors/logos for diff
 
 ## Usage:
 
- - You can **clone** or **fork** this repository to include the React Payment Form component in your React application.
+ -  **clone** or **fork** this repository.
 	```git clone https://github.com/kn8a/react-payment-form.git```
  - **Install dependencies:** Run the following command
 	``npm install``
@@ -71,7 +71,7 @@ discover: discoverLogo,
 mir: mirLogo,
 }
 ```
-## Props
+## ``<Form>`` Props
 |Prop| Value | 
 |--|--|
 |cardGlare|true/false (default = true)  |
