@@ -54,12 +54,12 @@ const  order  = {
 		price: 29.98,
 		itemTotal: 29.98,
 	},],
-	orderTotal: 100.92,
 }
+order.orderTotal =  order.items.reduce((total, item) =>  total  +  item.itemTotal, 0);
 ```
 
 - All other parameters are within the ``<Form>`` component.
-- Logos and cards face gradient colors can be changed in: 
+- Logos can be changed in: 
 ```
 const  logos  = {
 default: "",
@@ -70,15 +70,25 @@ jcb: jcbLogo,
 discover: discoverLogo,
 mir: mirLogo,
 }
-
-const  color  = {
-default: "linear(to-tr, gray.900 0%, gray.600 90%)",
-visa: "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)",
-mastercard: "linear(to-br, red.800 20%, yellow.700 70%,)",
-amex: "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
-jcb: "linear(to-br, blue.800 20%, red.800, green.800 80%)",
-discover: "linear(to-br, orange.500 0%, purple.800 90%)",
-mir: "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)",
-}
 ```
-[Additional info on gradients](https://chakra-ui.com/docs/styled-system/gradient)
+## Props
+|Prop| Value | 
+|--|--|
+|cardGlare|true/false (default = true)  |
+| cardTilt |true/false (default = true)  |
+| issuer | string (default = "Bank") | 
+| payButtonColor | string (gray, red, orange, yellow, green, teal, blue, cyan, purple, pink) (default = "green") |
+| backButtonColor | string (gray, red, orange, yellow, green, teal, blue, cyan, purple, pink) (default = "gray") |
+
+### Card Face Gradient props [[Additional info on gradients](https://chakra-ui.com/docs/styled-system/gradient)]
+
+|Prop| Value | 
+|--|--|
+|defaultCardColor|string (default = "linear(to-tr, gray.900 0%, gray.600 90%)")  |
+| visaColor |string (default = "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)")  |
+| mastercardColor| string (default = "linear(to-br, red.800 20%, yellow.700 70%,)") | 
+|amexColor | string (default = "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)") |
+| jcbColor | string (default = "linear(to-br, blue.800 20%, red.800, green.800 80%)") |
+| discoverColor | string (default = "linear(to-br, orange.500 0%, purple.800 90%)") |
+| mirColor | string (default = "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)") |
+
