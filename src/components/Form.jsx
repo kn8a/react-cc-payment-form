@@ -115,6 +115,7 @@ const Form = (props) => {
   const [cardColor, setCardColor] = useState(color.default)
   const bgColor = useColorModeValue("white", "gray.800")
   const borderColor = useColorModeValue("gray.200", "gray.700")
+  const [isNotAmex, setIsNotAmex] = useState(true)
 
   const [card, setCard] = useState({
     number: "0000  0000  0000  0000",
@@ -128,7 +129,12 @@ const Form = (props) => {
     let type = detectCreditCardType(card.number)
     setCard({ ...card, type: type })
     setCardColor(color[type])
-  }, [card.number])
+    if (type=="amex") {
+      setIsNotAmex(false)
+    } else {
+      setIsNotAmex(true)
+    }
+  }, [card])
 
   const onChange = (e) => {
     if (e.target.name == "number" && !e.target.value) {
@@ -161,17 +167,24 @@ const Form = (props) => {
   }
 
   const [isCvvFocused, setIsCvvFocused] = useState(false)
-  const [isNotAmex, setIsNotAmex] = useState(true)
+  
   const [showCardFront, setShowCardFront] = useState(true)
 
   const handleCvvFocus = () => {
-    setIsCvvFocused(true)
-    setShowCardFront(false)
+    if (isNotAmex == true) {
+      setIsCvvFocused(true)
+      setShowCardFront(false)
+    }
+    
   }
 
   const handleCvvBlur = () => {
-    setIsCvvFocused(false)
-    setShowCardFront(true)
+    if (isNotAmex == true) {
+      setIsCvvFocused(false)
+      setShowCardFront(true)
+    }
+      
+  
   }
 
   return (
