@@ -32,8 +32,6 @@ import discoverLogo from "../assets/rounded/discover.svg"
 import mirLogo from "../assets/rounded/mir.svg"
 import { motion } from "framer-motion"
 
-// import autoAnimate from "@formkit/auto-animate"
-
 const logos = {
   default: "",
   visa: visaLogo,
@@ -43,8 +41,6 @@ const logos = {
   discover: discoverLogo,
   mir: mirLogo,
 }
-
-
 
 function detectCreditCardType(cardNumber) {
   // Remove white spaces from the card number
@@ -92,25 +88,23 @@ const Form = (props) => {
     discoverColor,
     mirColor,
     cardGlare = true,
-    payButtonColor = 'green',
-    backButtonColor = 'gray',
+    payButtonColor = "green",
+    backButtonColor = "gray",
     issuer = "Bank",
     cardTilt = true,
-
-  } = props;
+  } = props
 
   const color = {
     default: defaultCardColor || "linear(to-tr, gray.900 0%, gray.600 90%)",
     visa: visaColor || "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)",
-    mastercard: mastercardColor || "linear(to-br, red.800 20%, yellow.700 70%,)",
+    mastercard:
+      mastercardColor || "linear(to-br, red.800 20%, yellow.700 70%,)",
     amex: amexColor || "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)",
     jcb: jcbColor || "linear(to-br, blue.800 20%, red.800, green.800 80%)",
     discover: discoverColor || "linear(to-br, orange.500 0%, purple.800 90%)",
     mir: mirColor || "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)",
-  };
+  }
 
-
-  
   const [key, setKey] = useState(0)
   const [cardColor, setCardColor] = useState(color.default)
   const bgColor = useColorModeValue("white", "gray.800")
@@ -129,12 +123,12 @@ const Form = (props) => {
     let type = detectCreditCardType(card.number)
     setCard({ ...card, type: type })
     setCardColor(color[type])
-    if (type=="amex") {
+    if (type == "amex") {
       setIsNotAmex(false)
     } else {
       setIsNotAmex(true)
     }
-  }, [card])
+  }, [card.type])
 
   const onChange = (e) => {
     if (e.target.name == "number" && !e.target.value) {
@@ -167,7 +161,7 @@ const Form = (props) => {
   }
 
   const [isCvvFocused, setIsCvvFocused] = useState(false)
-  
+
   const [showCardFront, setShowCardFront] = useState(true)
 
   const handleCvvFocus = () => {
@@ -175,7 +169,6 @@ const Form = (props) => {
       setIsCvvFocused(true)
       setShowCardFront(false)
     }
-    
   }
 
   const handleCvvBlur = () => {
@@ -183,8 +176,6 @@ const Form = (props) => {
       setIsCvvFocused(false)
       setShowCardFront(true)
     }
-      
-  
   }
 
   return (
@@ -228,8 +219,8 @@ const Form = (props) => {
                   </Text>
                   <BsBank size={30} color='white' />
                 </Flex>
-                <Flex pt={4} pb={2}  justifyContent={'space-between'} pr={2}>
-                  <Flex pl={9} pt={2} >
+                <Flex pt={4} pb={2} justifyContent={"space-between"} pr={2}>
+                  <Flex pl={9} pt={2}>
                     <Tilt
                       tiltEnable={false}
                       trackOnWindow={true}
@@ -248,8 +239,8 @@ const Form = (props) => {
                       </Flex>
                     </Tilt>
                   </Flex>
-                  <Flex  alignItems={'end'} hidden={isNotAmex}>
-                    <Text color={'gray.900'}>{card.cvv}</Text>
+                  <Flex alignItems={"end"} hidden={isNotAmex}>
+                    <Text color={"gray.900"}>{card.cvv}</Text>
                   </Flex>
                 </Flex>
 
@@ -343,12 +334,7 @@ const Form = (props) => {
                 </Flex>
 
                 <Flex alignItems={"center"} pt={6} pl={10}>
-                  <Flex
-                    m={0}
-                    p={0}
-                    w={"84px"}
-                    alignItems={"center"}
-                  >
+                  <Flex m={0} p={0} w={"84px"} alignItems={"center"}>
                     <Image width={"100%"} src={logos[card.type]}></Image>
                   </Flex>
                 </Flex>
@@ -500,7 +486,9 @@ const Form = (props) => {
             <Button colorScheme={payButtonColor} size={"lg"}>
               Pay ${props.order.orderTotal}
             </Button>
-            <Button colorScheme={backButtonColor} size={"sm"}>Back to Cart</Button>
+            <Button colorScheme={backButtonColor} size={"sm"}>
+              Back to Cart
+            </Button>
           </Flex>
         </Flex>
       </Flex>
