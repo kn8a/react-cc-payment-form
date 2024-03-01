@@ -161,6 +161,7 @@ const Form = (props) => {
   }
 
   const [isCvvFocused, setIsCvvFocused] = useState(false)
+  const [isNotAmex, setIsNotAmex] = useState(true)
   const [showCardFront, setShowCardFront] = useState(true)
 
   const handleCvvFocus = () => {
@@ -214,8 +215,8 @@ const Form = (props) => {
                   </Text>
                   <BsBank size={30} color='white' />
                 </Flex>
-                <Flex pt={4} pb={2}>
-                  <Flex pl={9} pt={2}>
+                <Flex pt={4} pb={2} border={'1px'} justifyContent={'space-between'} pr={2}>
+                  <Flex pl={9} pt={2} border={'1px'}>
                     <Tilt
                       tiltEnable={false}
                       trackOnWindow={true}
@@ -233,6 +234,9 @@ const Form = (props) => {
                         <FcSimCardChip size={50} />
                       </Flex>
                     </Tilt>
+                  </Flex>
+                  <Flex border={'1px'} alignItems={'end'} hidden={isNotAmex}>
+                    <Text>cvv</Text>
                   </Flex>
                 </Flex>
 
