@@ -20,9 +20,9 @@ Reusable Credit Card Payment (checkout) Form with changing colors/logos for diff
 
  -  **clone** or **fork** this repository.
 	```git clone https://github.com/kn8a/react-payment-form.git```
- - **Install dependencies:** Run the following command
+ - **Install dependencies:** 
 	``npm install``
- - **Start the development server:** Execute the following command:
+ - **Start the development server:** 
 	``npm run dev``
 
 ## **Libraries used:**
