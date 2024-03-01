@@ -228,8 +228,8 @@ const Form = (props) => {
                   </Text>
                   <BsBank size={30} color='white' />
                 </Flex>
-                <Flex pt={4} pb={2} border={'1px'} justifyContent={'space-between'} pr={2}>
-                  <Flex pl={9} pt={2} border={'1px'}>
+                <Flex pt={4} pb={2}  justifyContent={'space-between'} pr={2}>
+                  <Flex pl={9} pt={2} >
                     <Tilt
                       tiltEnable={false}
                       trackOnWindow={true}
@@ -248,8 +248,8 @@ const Form = (props) => {
                       </Flex>
                     </Tilt>
                   </Flex>
-                  <Flex border={'1px'} alignItems={'end'} hidden={isNotAmex}>
-                    <Text>cvv</Text>
+                  <Flex  alignItems={'end'} hidden={isNotAmex}>
+                    <Text color={'gray.900'}>{card.cvv}</Text>
                   </Flex>
                 </Flex>
 
