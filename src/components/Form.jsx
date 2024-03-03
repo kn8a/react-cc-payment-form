@@ -110,6 +110,8 @@ const Form = (props) => {
   const bgColor = useColorModeValue("white", "gray.800")
   const borderColor = useColorModeValue("gray.200", "gray.700")
   const [isNotAmex, setIsNotAmex] = useState(true)
+  const [cvvLength, setCvvLength] = useState(3)
+
 
   const [card, setCard] = useState({
     number: "0000  0000  0000  0000",
@@ -125,8 +127,10 @@ const Form = (props) => {
     setCardColor(color[type])
     if (type == "amex") {
       setIsNotAmex(false)
+      setCvvLength(4)
     } else {
       setIsNotAmex(true)
+      setCvvLength(3)
     }
   }, [card.type])
 
