@@ -219,7 +219,7 @@ const Form = (props) => {
                   </Text>
                   <BsBank size={30} color='white' />
                 </Flex>
-                <Flex pt={4} pb={2} justifyContent={"space-between"} pr={2}>
+                <Flex pt={4} pb={2} justifyContent={"space-between"} pr={4}>
                   <Flex pl={9} pt={2}>
                     <Tilt
                       tiltEnable={false}
