@@ -110,7 +110,9 @@ const Form = (props) => {
   const bgColor = useColorModeValue("white", "gray.800")
   const borderColor = useColorModeValue("gray.200", "gray.700")
   const [isNotAmex, setIsNotAmex] = useState(true)
-  const [cvvLength, setCvvLength] = useState(3)
+  const [cvvLength, setCvvLength] = useState('999')
+  const [cvvPlaceHolder, setCvvPlaceHolder] = useState('●●●')
+  const [cvvFieldSize, setCvvFieldSize] = useState('14')
 
 
   const [card, setCard] = useState({
@@ -127,12 +129,24 @@ const Form = (props) => {
     setCardColor(color[type])
     if (type == "amex") {
       setIsNotAmex(false)
-      setCvvLength(4)
+      setCvvLength('9999')
+      setCvvFieldSize('14')
+      setCvvPlaceHolder('●●●●')
     } else {
       setIsNotAmex(true)
-      setCvvLength(3)
+      setCvvLength('999')
+      setCvvFieldSize('14')
+      setCvvPlaceHolder('●●●')
     }
-  }, [card.type])
+  }, [card])
+
+  useEffect(()=>{
+    if (isNotAmex) {
+      setCard({...card, cvv: "●●●"})
+    } else if (!isNotAmex) {
+      setCard({...card, cvv: "●●●●"})
+    }
+  }, [isNotAmex])
 
   const onChange = (e) => {
     if (e.target.name == "number" && !e.target.value) {
@@ -408,15 +422,16 @@ const Form = (props) => {
                 CVV
               </FormLabel>
               <Input
+              px={2}
                 onFocus={handleCvvFocus}
                 onBlur={handleCvvBlur}
                 as={InputMask}
-                mask='999'
+                mask={cvvLength}
                 maskChar={null}
                 name='cvv'
                 onChange={onChange}
-                placeholder='●●●'
-                width='16'
+                placeholder={cvvPlaceHolder}
+                width={cvvFieldSize}
               />
             </FormControl>
           </Flex>
