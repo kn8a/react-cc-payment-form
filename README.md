@@ -10,7 +10,7 @@ Reusable Credit Card Payment (checkout) Form with changing colors/logos for diff
  - Light/Dark modes
  - Card flips on CVV entry
  - Animated digits
- - Card tilts with glare on mounse movement
+ - Card tilts with glare on mouse movement
  - Card logo and background change with type
  - Order summary accordion
  - Easy to customize and add card faces and logos
