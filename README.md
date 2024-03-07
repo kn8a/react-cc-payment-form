@@ -1,7 +1,7 @@
 # react-cc-payment-form
 
 Reusable Credit Card Payment (checkout) Form with changing colors/logos for different card types and support for light/dark modes.
-## [Demo](https://kn8a.github.io/react-payment-form/)
+
 
 ![card payment form](https://github.com/kn8a/react-payment-form/assets/88045655/faf1f885-683f-472a-8ba1-4107e3558dc8)
 
