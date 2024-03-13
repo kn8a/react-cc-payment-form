@@ -72,23 +72,22 @@ mir: mirLogo,
 }
 ```
 ## ``<Form>`` Props
-|Prop| Value | 
-|--|--|
-|cardGlare|true/false (default = true)  |
-| cardTilt |true/false (default = true)  |
-| issuer | string (default = "Bank") | 
-| payButtonColor | string (gray, red, orange, yellow, green, teal, blue, cyan, purple, pink) (default = "green") |
-| backButtonColor | string (gray, red, orange, yellow, green, teal, blue, cyan, purple, pink) (default = "gray") |
+|Prop| Value | Default|
+|--|--|--|
+|cardGlare|true/false | true|
+| cardTilt |true/false  |true|
+| issuer | string| "Bank"|
+| payButtonColor | string (gray, red, orange, yellow, green, teal, blue, cyan, purple, pink) | "green"|
+| backButtonColor | string (gray, red, orange, yellow, green, teal, blue, cyan, purple, pink)| "gray"|
 
 ### Card Face Gradient props [[Additional info on gradients](https://chakra-ui.com/docs/styled-system/gradient)]
 
-|Prop| Value | 
-|--|--|
-|defaultCardColor|string (default = "linear(to-tr, gray.900 0%, gray.600 90%)")  |
-| visaColor |string (default = "linear(to-br, cyan.500 0%, blue.600 30%,black 90%)")  |
-| mastercardColor| string (default = "linear(to-br, red.800 20%, yellow.700 70%,)") | 
-|amexColor | string (default = "linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)") |
-| jcbColor | string (default = "linear(to-br, blue.800 20%, red.800, green.800 80%)") |
-| discoverColor | string (default = "linear(to-br, orange.500 0%, purple.800 90%)") |
-| mirColor | string (default = "linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)") |
-
+|Prop| Value | Default|
+|--|--|--|
+|defaultCardColor|string |"linear(to-tr, gray.900 0%, gray.600 90%)" |
+| visaColor |string|"linear(to-br, cyan.500 0%, blue.600 30%,black 90%)" |
+| mastercardColor| string| "linear(to-br, red.800 20%, yellow.700 70%,)" |
+|amexColor | string  |"linear(to-br, gray.200 0%, blue.300 40%, blue.600 80%)" |
+| jcbColor | string |"linear(to-br, blue.800 20%, red.800, green.800 80%)" |
+| discoverColor | string |"linear(to-br, orange.500 0%, purple.800 90%)" |
+| mirColor | string  |"linear(to-br, blue.500 15%, green.600 50%, gray.700 90%)" |
