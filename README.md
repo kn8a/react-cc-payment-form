@@ -34,7 +34,7 @@ Reusable interactive Credit Card Payment (checkout) Form with tilt effect and ch
 
 ## Additional usage info
 Sample order is passed to ``<Form/>`` in the following format:
-```
+```js
 const  order  = {
 	items: [{
 		name: "Teal T-Shirt",
@@ -60,7 +60,7 @@ order.orderTotal =  order.items.reduce((total, item) =>  total  +  item.itemTota
 
 - All other parameters are within the ``<Form>`` component.
 - Logos can be changed in: 
-```
+```js
 const  logos  = {
 default: "",
 visa: visaLogo,
